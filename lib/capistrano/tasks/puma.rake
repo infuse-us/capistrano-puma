@@ -94,7 +94,7 @@ namespace :puma do
           puma_switch_user(role) do
             with rack_env: fetch(:puma_env) do
               if test "[ -f #{fetch(:puma_pid)} ]" 
-                %x("kill -s SIGUSR1 $( cat #{fetch(:puma_pid)} )")
+                test :kill, "-s SIGUSR1 $( cat #{fetch(:puma_pid)} )"
               else
                 # Puma is not running or state file is not present : Run it
                 invoke 'puma:start'
